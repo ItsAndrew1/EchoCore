@@ -1,0 +1,9 @@
+{
+  "Group": "_ItsAndrew_",
+  "Name": "EchoCore",
+  "Version": "1.0",
+  "Description": "Your world got corrupted by a robot named AEON-79. Now, he listens and sees whatever you do on that world, either rewarding you, or punishing you. Can you stop him from taking control over the world?",
+  "Authors": [{"Name": "_ItsAndrew_"}],
+  "Main": "com.itsandrew.echocore.EchoCorePlugin",
+  "LoadOrder": "POSTWORLD"
+}

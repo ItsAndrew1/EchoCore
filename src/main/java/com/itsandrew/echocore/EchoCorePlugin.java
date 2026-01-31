@@ -7,19 +7,24 @@ import com.hypixel.hytale.server.core.plugin.JavaPluginInit;
 import com.hypixel.hytale.logger.HytaleLogger;
 
 import javax.annotation.Nonnull;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.logging.Level;
 
 public class EchoCorePlugin extends JavaPlugin {
+    private final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
+    private EchoCorePlugin instance;
 
-    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
-    private static EchoCorePlugin instance;
+    public static MoralityManager moralityManager;
 
     public EchoCorePlugin(@Nonnull JavaPluginInit init) {
         super(init);
         instance = this;
     }
 
-    public static EchoCorePlugin getInstance() {
+    public EchoCorePlugin getInstance() {
         return instance;
     }
 
@@ -33,6 +38,13 @@ public class EchoCorePlugin extends JavaPlugin {
         //Registering events
         this.getEventRegistry().registerGlobal(PlayerReadyEvent.class, PlayerJoin::onPlayerReady);
 
+        //Initializing the .json file
+        try{
+            moralityManager = new MoralityManager(this.getDataDirectory(), this);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
         LOGGER.at(Level.INFO).log("Setup complete!");
     }
 
@@ -45,9 +57,5 @@ public class EchoCorePlugin extends JavaPlugin {
     protected void shutdown() {
         LOGGER.at(Level.INFO).log("Shutting down...");
         instance = null;
-    }
-
-    public HytaleLogger getLogger() {
-        return LOGGER;
     }
 }

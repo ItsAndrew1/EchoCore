@@ -5,12 +5,9 @@ import com.hypixel.hytale.server.core.event.events.player.PlayerReadyEvent;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import com.hypixel.hytale.server.core.plugin.JavaPluginInit;
 import com.hypixel.hytale.logger.HytaleLogger;
+import com.itsandrew.echocore.punishing.PlayerDeath;
 
 import javax.annotation.Nonnull;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.logging.Level;
 
 public class EchoCorePlugin extends JavaPlugin {
@@ -37,6 +34,7 @@ public class EchoCorePlugin extends JavaPlugin {
 
         //Registering events
         this.getEventRegistry().registerGlobal(PlayerReadyEvent.class, PlayerJoin::onPlayerReady);
+        this.getEntityStoreRegistry().registerSystem(new PlayerDeath());
 
         //Initializing the .json file
         try{

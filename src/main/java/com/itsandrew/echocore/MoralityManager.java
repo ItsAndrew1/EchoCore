@@ -1,8 +1,13 @@
+//Developed by _ItsAndrew_
 package com.itsandrew.echocore;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import com.hypixel.hytale.server.core.HytaleServer;
+import com.hypixel.hytale.server.core.Message;
+import com.hypixel.hytale.server.core.entity.entities.Player;
+import com.hypixel.hytale.server.core.universe.Universe;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -20,8 +25,6 @@ public class MoralityManager {
     }
 
     public void onPlayerJoin(UUID playerUUID){
-        plugin.getLogger().at(Level.WARNING).log(dataFilePath.toString());
-
         //Adding the players that join in the data file
         try{
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -67,6 +70,29 @@ public class MoralityManager {
         } catch (Exception e){
             e.printStackTrace();
             return 0;
+        }
+    }
+
+    public void setPlayerMorality(UUID playerUUID, int morality){
+        try{
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            if(!Files.exists(dataFilePath)) return;
+
+            JsonObject root = gson.fromJson(Files.readString(dataFilePath), JsonObject.class);
+            if(root == null || !root.has("players")) return;
+
+            JsonObject players = root.getAsJsonObject("players");
+            if(!players.has(playerUUID.toString())) return;
+            root.add("players", players);
+
+            JsonObject playerData = players.getAsJsonObject(playerUUID.toString());
+            if(!playerData.has("morality")) return;
+            playerData.addProperty("morality", getPlayerMorality(playerUUID) + morality);
+            players.add(playerUUID.toString(), playerData);
+
+            Files.writeString(dataFilePath, gson.toJson(root));
+        } catch (Exception e){
+            e.printStackTrace();
         }
     }
 

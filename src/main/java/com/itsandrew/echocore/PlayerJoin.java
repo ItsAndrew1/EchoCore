@@ -1,9 +1,6 @@
+//Developed by _ItsAndrew_
 package com.itsandrew.echocore;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import com.google.gson.JsonObject;
 import com.hypixel.hytale.builtin.adventure.memories.component.PlayerMemories;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.protocol.ItemWithAllMetadata;
@@ -22,12 +19,6 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.hypixel.hytale.server.core.util.NotificationUtil;
 
 import java.awt.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.UUID;
 
 public class PlayerJoin {
     public static void onPlayerReady(PlayerReadyEvent event){
@@ -49,7 +40,7 @@ public class PlayerJoin {
             player.sendMessage(firstJoinMessage);
         }
         else{
-            Message primaryMessage = Message.raw("Took you long enough.").color("#7314cc");
+            Message primaryMessage = Message.join(Message.raw("[AEON-79] ").color(Color.CYAN), Message.raw("Took you long enough.").color("#7314cc"));
             Message secondaryMessage = Message.raw("Get going. You have work to do.").color("#9045d6");
             ItemWithAllMetadata icon = new ItemStack("Armor_Onyxium_Head", 1).toPacket();
 

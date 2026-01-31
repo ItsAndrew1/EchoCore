@@ -1,3 +1,4 @@
+//Developed by _ItsAndrew_
 package com.itsandrew.echocore;
 
 import com.hypixel.hytale.component.Ref;
@@ -14,6 +15,7 @@ import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import org.checkerframework.checker.nullness.compatqual.NonNullDecl;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -38,7 +40,7 @@ public class MoralStatusCommand extends AbstractPlayerCommand {
         messages.add(Message.raw("Can you stop? Like really... ").color("#7314cc"));
 
         Random rand = new Random();
-        commandContext.sendMessage(Message.join(messages.get(rand.nextInt(messages.size())), Message.raw("Your morality level is "+moralityLevel).color("#7314cc")));
+        commandContext.sendMessage(Message.join(Message.raw("[AEON-79] ").color(Color.CYAN), messages.get(rand.nextInt(messages.size())), Message.raw("Your morality level is "+moralityLevel).color("#7314cc")));
 
         //Plays multiple sounds
         List<Integer> sounds = new ArrayList<>();

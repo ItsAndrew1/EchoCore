@@ -1,11 +1,14 @@
 //Developed by _ItsAndrew_
 package com.itsandrew.echocore;
 
+import com.hypixel.hytale.server.core.event.events.ecs.BreakBlockEvent;
+import com.hypixel.hytale.server.core.event.events.ecs.DiscoverZoneEvent;
+import com.hypixel.hytale.server.core.event.events.ecs.PlaceBlockEvent;
 import com.hypixel.hytale.server.core.event.events.player.PlayerReadyEvent;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import com.hypixel.hytale.server.core.plugin.JavaPluginInit;
 import com.hypixel.hytale.logger.HytaleLogger;
-import com.itsandrew.echocore.punishing.PlayerDeath;
+import com.itsandrew.echocore.RewardingAndPunishing.*;
 
 import javax.annotation.Nonnull;
 import java.util.logging.Level;
@@ -35,6 +38,8 @@ public class EchoCorePlugin extends JavaPlugin {
         //Registering events
         this.getEventRegistry().registerGlobal(PlayerReadyEvent.class, PlayerJoin::onPlayerReady);
         this.getEntityStoreRegistry().registerSystem(new PlayerDeath());
+        this.getEntityStoreRegistry().registerSystem(new PlayerPlaceBlock(PlaceBlockEvent.class));
+        this.getEntityStoreRegistry().registerSystem(new PlayerBreakBlock(BreakBlockEvent.class));
 
         //Initializing the .json file
         try{

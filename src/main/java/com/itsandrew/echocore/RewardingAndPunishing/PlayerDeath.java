@@ -1,5 +1,5 @@
 //Developed by _ItsAndrew_
-package com.itsandrew.echocore.punishing;
+package com.itsandrew.echocore.RewardingAndPunishing;
 
 import com.hypixel.hytale.component.CommandBuffer;
 import com.hypixel.hytale.component.Ref;

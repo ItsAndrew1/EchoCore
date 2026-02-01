@@ -54,6 +54,8 @@ public class PlayerPlaceBlock extends EntityEventSystem<EntityStore, PlaceBlockE
 
             //Adding morality
             EchoCorePlugin.moralityManager.setPlayerMorality(store.getComponent(ref, PlayerRef.getComponentType()).getUuid(), 5);
+            EchoCorePlugin.moralityManager.applyReward(player, playerRef);
+            //Implement other messages.
 
             //Sending a notification
             List<Message> messages = new ArrayList<>();
@@ -75,6 +77,8 @@ public class PlayerPlaceBlock extends EntityEventSystem<EntityStore, PlaceBlockE
 
             //Adding morality
             EchoCorePlugin.moralityManager.setPlayerMorality(store.getComponent(ref, PlayerRef.getComponentType()).getUuid(), 3);
+            EchoCorePlugin.moralityManager.applyReward(player, playerRef);
+            //Implement other messages.
 
             //Sending a notification
             List<Message> messages = new ArrayList<>();
@@ -95,6 +99,8 @@ public class PlayerPlaceBlock extends EntityEventSystem<EntityStore, PlaceBlockE
 
             //Adding morality
             EchoCorePlugin.moralityManager.setPlayerMorality(store.getComponent(ref, PlayerRef.getComponentType()).getUuid(), 6);
+            EchoCorePlugin.moralityManager.applyReward(player, playerRef);
+            //Implement other messages.
 
             //Sending a notification
             List<Message> messages = new ArrayList<>();

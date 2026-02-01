@@ -83,6 +83,8 @@ public class PlayerBreakBlock extends EntityEventSystem<EntityStore, BreakBlockE
                 EchoCorePlugin.moralityManager.setPlayerMorality(playerRef.getUuid(), 12);
                 moral = 12;
             }
+            EchoCorePlugin.moralityManager.applyReward(player, playerRef);
+            //Implement other messages.
 
             //Sending a notification
             List<Message> messages = new ArrayList<>();

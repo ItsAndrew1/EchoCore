@@ -15,18 +15,13 @@ import java.util.logging.Level;
 
 public class EchoCorePlugin extends JavaPlugin {
     private final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
-    private EchoCorePlugin instance;
 
     public static MoralityManager moralityManager;
 
     public EchoCorePlugin(@Nonnull JavaPluginInit init) {
         super(init);
-        instance = this;
     }
 
-    public EchoCorePlugin getInstance() {
-        return instance;
-    }
 
     @Override
     protected void setup() {
@@ -59,6 +54,5 @@ public class EchoCorePlugin extends JavaPlugin {
     @Override
     protected void shutdown() {
         LOGGER.at(Level.INFO).log("Shutting down...");
-        instance = null;
     }
 }

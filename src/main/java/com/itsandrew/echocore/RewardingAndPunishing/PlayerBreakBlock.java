@@ -103,8 +103,11 @@ public class PlayerBreakBlock extends EntityEventSystem<EntityStore, BreakBlockE
             int number = rand.nextInt(100);
             if(number >= 50) return;
 
-            //Removing morality (AEON-79 loves nature)
-            EchoCorePlugin.moralityManager.setPlayerMorality(playerRef.getUuid(), -5);
+            //Removing morality (AEON-79 loves the nature)
+            EchoCorePlugin.moralityManager.setPlayerMorality(playerRef.getUuid(), -10);
+
+            //Checks for applying the punishment.
+            EchoCorePlugin.moralityManager.applyPunishment(player,  playerRef);
 
             //Sending a notification
             List<Message> messages = new ArrayList<>();

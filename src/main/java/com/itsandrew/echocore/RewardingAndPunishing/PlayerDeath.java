@@ -34,15 +34,13 @@ public class PlayerDeath extends DeathSystems.OnDeathSystem{
         assert player != null;
 
         //Sends a message to the player's screen
-        player.sendMessage(Message.join(Message.raw("[AEON-79] ").color(Color.CYAN),
-                Message.raw("Maybe I should go find someone else at this point...").color("#7314cc")
-                ));
+        player.sendMessage(Message.join(Message.raw("You Died...because of this, you lose ").color("#7314cc"), Message.raw("15").color(Color.CYAN), Message.raw(" morality!").color("#7314cc")));
 
         //Sending a notification
         ItemWithAllMetadata icon = new ItemStack("Recipe_Book_Magic_Air").toPacket();
         NotificationUtil.sendNotification(
                 playerRef.getPacketHandler(),
-                Message.raw("You Died!").color("#7314cc"),
+                Message.join(Message.raw("[AEON-79] ").color(Color.CYAN), Message.raw("Maybe I should go find someone else at this point...").color("#7314cc")),
                 Message.raw("Because of this, you lose 20 moral points.").color("#15d3e8"),
                 icon
         );
@@ -54,8 +52,8 @@ public class PlayerDeath extends DeathSystems.OnDeathSystem{
             SoundUtil.playSoundEvent3dToPlayer(ref, index, SoundCategory.SFX, component.getPosition(), store);
         });
 
-        //Decreasing the player's morality by 20
-        EchoCorePlugin.moralityManager.setPlayerMorality(store.getComponent(ref, PlayerRef.getComponentType()).getUuid(), -20);
+        //Decreasing the player's morality by 15
+        EchoCorePlugin.moralityManager.setPlayerMorality(store.getComponent(ref, PlayerRef.getComponentType()).getUuid(), -15);
     }
 
     @NullableDecl

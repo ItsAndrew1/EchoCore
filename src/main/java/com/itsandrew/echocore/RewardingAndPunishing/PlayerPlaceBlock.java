@@ -54,17 +54,19 @@ public class PlayerPlaceBlock extends EntityEventSystem<EntityStore, PlaceBlockE
 
             //Adding morality
             EchoCorePlugin.moralityManager.setPlayerMorality(store.getComponent(ref, PlayerRef.getComponentType()).getUuid(), 5);
+
+            //Playing a sound
+            playSound(store, ref);
+
+            //Applies the reward (checking if he got to a milestone)
             EchoCorePlugin.moralityManager.applyReward(player, playerRef);
-            //Implement other messages.
+
 
             //Sending a notification
             List<Message> messages = new ArrayList<>();
             messages.add(Message.raw("Nice farming skills you've got.").color("#7314cc"));
             messages.add(Message.raw("Was your dad a farmer by any chance?").color("#7314cc"));
             sendNotification(playerRef, messages, 5);
-
-            //Playing a sound
-            playSound(store, ref);
         }
 
         //Adding morality based on building stuff

@@ -41,7 +41,7 @@ public class PlayerJoin {
 
         if(player.isFirstSpawn()){
             Message firstJoinMessage = Message.raw("Welcome to your world, "+player.getDisplayName()+". My name is AEON-79," +
-                    " a Hydroid, and I have corrupted your world. If you want to get rid of me, reach 100 memories, and I shall be free of this cursed world..").color("#7314cc");
+                    " a Hydroid, and I have corrupted your world. If you want to get rid of me, reach 100 memories (WIP), and I shall be free of this cursed world... You may also do /moral to see your moral status..").color("#7314cc");
             player.sendMessage(firstJoinMessage);
         }
         else{

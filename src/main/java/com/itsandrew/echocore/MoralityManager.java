@@ -4,6 +4,9 @@ package com.itsandrew.echocore;
 import com.google.gson.*;
 import com.hypixel.hytale.component.AddReason;
 import com.hypixel.hytale.component.Holder;
+import com.hypixel.hytale.component.Ref;
+import com.hypixel.hytale.math.vector.Vector3d;
+import com.hypixel.hytale.math.vector.Vector3f;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.asset.type.model.config.Model;
 import com.hypixel.hytale.server.core.asset.type.model.config.ModelAsset;
@@ -20,7 +23,10 @@ import com.hypixel.hytale.server.core.modules.entity.component.TransformComponen
 import com.hypixel.hytale.server.core.modules.entity.tracker.NetworkId;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.World;
+import com.hypixel.hytale.server.core.universe.world.npc.INonPlayerCharacter;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import com.hypixel.hytale.server.npc.NPCPlugin;
+import it.unimi.dsi.fastutil.Pair;
 
 import java.awt.*;
 import java.nio.file.Files;
@@ -62,7 +68,7 @@ public class MoralityManager {
                 players.add(playerUUID.toString(), playerData);
 
                 JsonArray milestones =  new JsonArray();
-                players.add("milestones", milestones);
+                playerData.add("milestones", milestones);
             }
 
             //Saving the root
@@ -174,7 +180,7 @@ public class MoralityManager {
         }
         if(getPlayerMorality(playerRef.getUuid()) >= 100 && !hasPlayerReachedMilestone(playerRef, 100)){
             //Resets their morality if it gets to or over 100
-            setPlayerMorality(playerRef.getUuid(), 0);
+            setPlayerMorality(playerRef.getUuid(), -getPlayerMorality(playerRef.getUuid()));
 
             List<ItemStack> rewardItems = new ArrayList<>();
             rewardItems.add(new ItemStack("Weapon_Axe_Mithril"));
@@ -259,15 +265,13 @@ public class MoralityManager {
         //Spawning different entities to the player
         List<String> entityIds = new ArrayList<>();
         entityIds.add("Goblin_Ogre");
-        entityIds.add("Golem_Guardian_Void");
-        entityIds.add("Golem_Crystal_Earth");
         entityIds.add("Toad_Rhino_Magma");
         entityIds.add("Trork_Hunter");
 
         //Checking if the player reached a specific negative milestone
         if(getPlayerMorality(playerRef.getUuid()) <= -100){
             //Resetting the player's morality to 0
-            setPlayerMorality(playerRef.getUuid(), 0);
+            setPlayerMorality(playerRef.getUuid(), -getPlayerMorality(playerRef.getUuid()));
 
             //Clears the player's inventory.
             player.getInventory().getStorage().clear();
@@ -320,34 +324,25 @@ public class MoralityManager {
         Inventory playerInv = player.getInventory();
         ItemContainer container = playerInv.getStorage();
 
-        ItemStack[] playerItems = container.clear().getItems();
-        container.removeItemStackFromSlot((short) new Random().nextInt(playerItems.length));
+        container.removeItemStackFromSlot((short) new Random().nextInt(container.getCapacity()));
     }
 
     //Helper method to spawn entities.
     private void spawnEntity(Player player, PlayerRef playerRef, String entityId){
         World playerWorld = player.getWorld();
+
         EntityStore store = playerWorld.getEntityStore();
-        Holder<EntityStore> holder = EntityStore.REGISTRY.newHolder();
 
-        ModelAsset asset = ModelAsset.getAssetMap().getAsset(entityId);
-        Model entityModel = Model.createScaledModel(asset, 1.0f);
-
-        //Getting the player's location and spawning it there
+        //Getting the entity's location
         TransformComponent trComponent = store.getStore().getComponent(playerRef.getReference(), EntityModule.get().getTransformComponentType());
+        double entityX = trComponent.getPosition().getX() + new Random().nextInt(10);
+        double entityZ = trComponent.getPosition().getZ() + new Random().nextInt(10);
+        Vector3d entityPosition = new  Vector3d(entityX, trComponent.getPosition().getY(), entityZ);
+        Vector3f entityRotation = new Vector3f(0, 0, 0);
 
-        //Adding components to the holder
-        holder.addComponent(TransformComponent.getComponentType(), trComponent);
-        holder.addComponent(PersistentModel.getComponentType(), new PersistentModel(entityModel.toReference()));
-        holder.addComponent(ModelComponent.getComponentType(), new ModelComponent(entityModel));
-        holder.addComponent(BoundingBox.getComponentType(), new BoundingBox(entityModel.getBoundingBox()));
-        holder.addComponent(NetworkId.getComponentType(), new NetworkId(store.getStore().getExternalData().takeNextNetworkId()));
-
-        //Ensuring some components
-        holder.ensureComponent(UUIDComponent.getComponentType());
-
-        //Spawning the entity
-        store.getStore().addEntity(holder, AddReason.SPAWN);
+        playerWorld.execute(() -> {
+            Pair<Ref<EntityStore>, INonPlayerCharacter> result = NPCPlugin.get().spawnNPC(store.getStore(), entityId, null, entityPosition, entityRotation);
+        });
     }
 
     private boolean hasPlayerReachedMilestone(PlayerRef playerRef, int milestone){

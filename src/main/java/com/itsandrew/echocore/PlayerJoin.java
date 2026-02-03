@@ -34,6 +34,11 @@ public class PlayerJoin {
         if(memories != null && memories.getRecordedMemories().size() >= 100) return;
         EchoCorePlugin.moralityManager.onPlayerJoin(playerRef.getUuid());
 
+        //Special message for the judges.
+        player.sendMessage(Message.join(Message.raw("[_ItsAndrew_] ").color(Color.GREEN),
+                Message.raw("Hello dear Judges! I am a 17 years old high school student and I used this modjam as an opportunity to learn the basics of this API! There may have some minor bugs, but the main scope works. I will for sure continue to work on it after this! Thanks for this opportunity.")
+        ));
+
         if(player.isFirstSpawn()){
             Message firstJoinMessage = Message.raw("Welcome to your world, "+player.getDisplayName()+". My name is AEON-79," +
                     " a Hydroid, and I have corrupted your world. If you want to get rid of me, reach 100 memories, and I shall be free of this cursed world..").color("#7314cc");
@@ -50,11 +55,6 @@ public class PlayerJoin {
                     icon
             );
         }
-
-        //Special message for the judges.
-        player.sendMessage(Message.join(Message.raw("[_ItsAndrew_] ").color(Color.GREEN),
-                Message.raw("Hello dear Judges! I am a 17 years old high school student and I used this modjam as an opportunity to learn the basics of this API! There may have some minor bugs, but the main scope works. I will for sure continue to work on it after this! Thanks for this opportunity.")
-        ));
 
         //Playing a sound
         int index = SoundEvent.getAssetMap().getIndex("SFX_Golem_Firesteel_Wake");

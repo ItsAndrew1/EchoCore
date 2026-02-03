@@ -36,7 +36,7 @@ public class PlayerJoin {
 
         //Special message for the judges.
         player.sendMessage(Message.join(Message.raw("[_ItsAndrew_] ").color(Color.GREEN),
-                Message.raw("Hello dear Judges! I am a 17 years old high school student and I used this modjam as an opportunity to learn the basics of this API! There may have some minor bugs, but the main scope works. I will for sure continue to work on it after this! Thanks for this opportunity.")
+                Message.raw("Hello dear Judges! I am a 17 years old high school student and I used this modjam as an opportunity to learn the basics of this API! There may have some minor bugs, but the main scope works. I have previous experience with making minecraft plugins, so the mod is pure coding, no assets/art work but I will learn that in the future! I will for sure continue to work on it after this! Thanks for this opportunity.")
         ));
 
         if(player.isFirstSpawn()){

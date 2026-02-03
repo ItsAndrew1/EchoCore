@@ -41,7 +41,7 @@ public class PlayerDeath extends DeathSystems.OnDeathSystem{
         NotificationUtil.sendNotification(
                 playerRef.getPacketHandler(),
                 Message.join(Message.raw("[AEON-79] ").color(Color.CYAN), Message.raw("Maybe I should go find someone else at this point...").color("#7314cc")),
-                Message.raw("Because of this, you lose 20 moral points.").color("#15d3e8"),
+                Message.raw("Because of this, you lose 15 moral points.").color("#15d3e8"),
                 icon
         );
 

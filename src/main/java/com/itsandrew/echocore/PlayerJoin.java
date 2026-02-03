@@ -43,7 +43,6 @@ public class PlayerJoin {
             Message primaryMessage = Message.join(Message.raw("[AEON-79] ").color(Color.CYAN), Message.raw("Took you long enough.").color("#7314cc"));
             Message secondaryMessage = Message.raw("Get going. You have work to do.").color("#9045d6");
             ItemWithAllMetadata icon = new ItemStack("Armor_Onyxium_Head", 1).toPacket();
-
             NotificationUtil.sendNotification(
                     playerRef.getPacketHandler(),
                     primaryMessage,
@@ -51,6 +50,11 @@ public class PlayerJoin {
                     icon
             );
         }
+
+        //Special message for the judges.
+        player.sendMessage(Message.join(Message.raw("[_ItsAndrew_] ").color(Color.GREEN),
+                Message.raw("Hello dear Judges! I am a 17 years old high school student and I used this modjam as an opportunity to learn the basics of this API! There may have some minor bugs, but the main scope works. I will for sure continue to work on it after this! Thanks for this opportunity.")
+        ));
 
         //Playing a sound
         int index = SoundEvent.getAssetMap().getIndex("SFX_Golem_Firesteel_Wake");

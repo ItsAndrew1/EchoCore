@@ -2,7 +2,6 @@
 package com.itsandrew.echocore;
 
 import com.hypixel.hytale.server.core.event.events.ecs.BreakBlockEvent;
-import com.hypixel.hytale.server.core.event.events.ecs.DiscoverZoneEvent;
 import com.hypixel.hytale.server.core.event.events.ecs.PlaceBlockEvent;
 import com.hypixel.hytale.server.core.event.events.player.PlayerReadyEvent;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
@@ -28,7 +27,7 @@ public class EchoCorePlugin extends JavaPlugin {
         LOGGER.at(Level.INFO).log("Setting up...");
 
         //Registering commands
-        this.getCommandRegistry().registerCommand(new MoralStatusCommand("moralstatus", "Displays your moral status."));
+        this.getCommandRegistry().registerCommand(new MoralStatusCommand("moral", "Displays your moral status."));
 
         //Registering events
         this.getEventRegistry().registerGlobal(PlayerReadyEvent.class, PlayerJoin::onPlayerReady);

@@ -50,7 +50,7 @@ public class PlayerPlaceBlock extends EntityEventSystem<EntityStore, PlaceBlockE
         if(itemId.contains("Plant_Seeds") || itemId.contains("Plant_Crop")){
             Random rand = new Random();
             int number = rand.nextInt(100);
-            if(number >= 10) return;
+            if(number >= 20) return;
 
             //Adding morality
             EchoCorePlugin.moralityManager.setPlayerMorality(store.getComponent(ref, PlayerRef.getComponentType()).getUuid(), 5);
@@ -61,7 +61,6 @@ public class PlayerPlaceBlock extends EntityEventSystem<EntityStore, PlaceBlockE
             //Applies the reward (checking if he got to a milestone)
             EchoCorePlugin.moralityManager.applyReward(player, playerRef);
 
-
             //Sending a notification
             List<Message> messages = new ArrayList<>();
             messages.add(Message.raw("Nice farming skills you've got.").color("#7314cc"));
@@ -71,11 +70,11 @@ public class PlayerPlaceBlock extends EntityEventSystem<EntityStore, PlaceBlockE
 
         //Adding morality based on building stuff
         if(itemId.contains("Roof") || itemId.contains("Fence") || itemId.contains("Beam") || itemId.contains("Planks") || itemId.contains("Pillar")
-            || itemId.contains("Wall") || itemId.contains("Half") || itemId.contains("Trunk")
+            || itemId.contains("Wall") || itemId.contains("Half")
         ){
             Random rand = new Random();
             int number = rand.nextInt(100);
-            if(number >= 10) return;
+            if(number >= 20) return;
 
             //Adding morality
             EchoCorePlugin.moralityManager.setPlayerMorality(store.getComponent(ref, PlayerRef.getComponentType()).getUuid(), 3);
@@ -97,7 +96,7 @@ public class PlayerPlaceBlock extends EntityEventSystem<EntityStore, PlaceBlockE
         if(itemId.contains("Bench") || itemId.contains("Furniture")){
             Random rand = new Random();
             int number = rand.nextInt(100);
-            if(number >= 7) return;
+            if(number >= 20) return;
 
             //Adding morality
             EchoCorePlugin.moralityManager.setPlayerMorality(store.getComponent(ref, PlayerRef.getComponentType()).getUuid(), 6);

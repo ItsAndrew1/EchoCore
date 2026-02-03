@@ -35,7 +35,7 @@ public class MoralityManager {
     private final Path dataFilePath;
     private final EchoCorePlugin plugin;
 
-    public MoralityManager(Path modDir,  EchoCorePlugin plugin) {
+    public MoralityManager(Path modDir, EchoCorePlugin plugin) {
         this.plugin = plugin;
         this.dataFilePath = modDir.resolve("data.json");
         load();
@@ -247,7 +247,8 @@ public class MoralityManager {
             JsonArray milestones = playerData.getAsJsonArray("milestones");
 
             //Adding milestone
-            if(getPlayerMorality(playerRef.getUuid()) >= milestone && !hasPlayerReachedMilestone(playerRef, milestone)) milestones.add(milestone);
+            milestones.add(milestone);
+            Files.writeString(dataFilePath, gson.toJson(root));
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -272,7 +273,7 @@ public class MoralityManager {
             player.getInventory().getStorage().clear();
 
             //Sends a chat message
-            player.sendMessage(Message.raw("AEON-79 took all the items from your inventory!"));
+            player.sendMessage(Message.raw("AEON-79 took all the items from your inventory!").color(Color.CYAN));
             return;
         }
         if(getPlayerMorality(playerRef.getUuid()) <= -80){
@@ -282,7 +283,7 @@ public class MoralityManager {
             spawnEntity(player, playerRef, entityIds.get(new Random().nextInt(entityIds.size())));
             spawnEntity(player, playerRef, entityIds.get(new Random().nextInt(entityIds.size())));
 
-            player.sendMessage(Message.raw("AEON-79 summoned 4 enemies!"));
+            player.sendMessage(Message.raw("AEON-79 summoned 4 enemies!").color(Color.CYAN));
             return;
         }
 
@@ -291,7 +292,7 @@ public class MoralityManager {
             spawnEntity(player, playerRef, entityIds.get(new Random().nextInt(entityIds.size())));
             spawnEntity(player, playerRef, entityIds.get(new Random().nextInt(entityIds.size())));
 
-            player.sendMessage(Message.raw("AEON-79 summoned 2 enemies!"));
+            player.sendMessage(Message.raw("AEON-79 summoned 2 enemies!").color(Color.CYAN));
             return;
         }
 
@@ -302,7 +303,7 @@ public class MoralityManager {
             removeItemFromPlayerInv(player);
 
             //Sending a chat message about this.
-            player.sendMessage(Message.join(Message.raw("AEON-79 took 3 items from your inventory because you reached a morality of -40 or higher!")));
+            player.sendMessage(Message.join(Message.raw("AEON-79 took 3 items from your inventory because you reached a morality of -40 or lower!").color(Color.CYAN)));
             return;
         }
 
@@ -311,14 +312,16 @@ public class MoralityManager {
             removeItemFromPlayerInv(player);
 
             //Sending a chat message
-            player.sendMessage(Message.raw("AEON-79 took 1 item from your inventory."));
+            player.sendMessage(Message.raw("AEON-79 took 1 item from your inventory because you reached a morality of -20 or lower!").color(Color.CYAN));
         }
     }
 
     private void removeItemFromPlayerInv(Player player){
         Inventory playerInv = player.getInventory();
         ItemContainer container = playerInv.getStorage();
-        container.removeItemStackFromSlot((short) new Random().nextInt(container.clear().getItems().length));
+
+        ItemStack[] playerItems = container.clear().getItems();
+        container.removeItemStackFromSlot((short) new Random().nextInt(playerItems.length));
     }
 
     //Helper method to spawn entities.

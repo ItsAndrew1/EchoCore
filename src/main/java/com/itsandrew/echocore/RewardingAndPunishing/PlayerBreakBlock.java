@@ -114,7 +114,7 @@ public class PlayerBreakBlock extends EntityEventSystem<EntityStore, BreakBlockE
             messages.add(Message.raw("NOOO. Not my trees :(").color("#7314cc"));
             messages.add(Message.raw("Oh you will pay for that.").color("#7314cc"));
             messages.add(Message.raw("Aren't you done chopping my trees?..").color("#7314cc"));
-            sendNotification(playerRef, messages, 5, false);
+            sendNotification(playerRef, messages, 10, false);
 
             //Plays a sound to the player
             playSound(store, ref);
